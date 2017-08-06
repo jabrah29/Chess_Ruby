@@ -4,8 +4,8 @@ require_relative 'piece_strings'
 class Pawn < Piece
 
 
-  def initialize(team,x_coord,y_coord,piece_string,color)
-    super(color,x:x_coord,y:y_coord)
+  def initialize(team,x_coord,y_coord,piece_string)
+    super(team,x:x_coord,y:y_coord)
     @piece_on_board=piece_string
   end
 

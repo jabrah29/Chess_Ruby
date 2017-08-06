@@ -1,7 +1,7 @@
 module Piece_Strings
   module White
     KING="\u2654"
-    QUEEN="\u265A"
+    QUEEN="\u2655"
     ROOK="\u2656"
     KNIGHT="\u2658"
     BISHOP="\u2657"
@@ -14,6 +14,6 @@ module Piece_Strings
     ROOK="\u265C"
     KNIGHT="\u265E"
     BISHOP="\u265D"
-    PAWN="\u2659F"
+    PAWN="\u265F"
   end
 end
