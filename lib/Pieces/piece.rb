@@ -1,11 +1,13 @@
+require_relative '../Player/color'
+
 class Piece
 
-  @@color
+  @color
 
 
 
   def initialize(set_color,**coords)
-    @@color=set_color
+    @color=set_color
     @location_on_board={
         "x"=>coords[:x],
         "y"=>coords[:y]
@@ -20,6 +22,15 @@ class Piece
 
   def get_y
     return @location_on_board["y"]
+  end
+
+
+  def is_white?
+    return @color == Color::WHITE
+  end
+
+  def is_black?
+    return @color == Color::BLACK
   end
 
 
