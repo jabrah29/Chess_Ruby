@@ -2,7 +2,7 @@ require_relative 'move_piece'
 require_relative '../Board/board'
 require_relative '../Pieces/king'
 require_relative '../Player/player_white'
-require_relative '../Gameplay/main'
+require_relative '../Gameplay/in'
 require_relative '../Pieces/rook'
 require_relative '../Pieces/bishop'
 module Valid_Moves

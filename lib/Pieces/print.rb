@@ -1,4 +1,4 @@
-module Piece_Strings
+module Print
   module White
     KING="\u2654"
     QUEEN="\u2655"

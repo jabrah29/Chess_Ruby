@@ -1,6 +1,4 @@
 require_relative '../Board/board'
-require_relative '../Gameplay/main'
-class Piece_Actions
 
   module Move_On_Board
     attr_reader :RIGHT, :LEFT, :TOP_LEFT, :TOP_RIGHT,:BOTTOM_LEFT,:BOTTOM_RIGHT,:UP,:DOWN ,:KNIGHT_DOWN_LEFT,:KNIGHT_DOWN_RIGHT
@@ -108,4 +106,3 @@ class Piece_Actions
     end
   end
 
-end

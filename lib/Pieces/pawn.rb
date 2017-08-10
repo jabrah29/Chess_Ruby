@@ -1,5 +1,5 @@
 require_relative 'piece'
-require_relative 'piece_strings'
+require_relative 'print'
 require_relative '../Gameplay/move_piece'
 
 class Pawn < Piece
@@ -17,21 +17,23 @@ class Pawn < Piece
 
   end
 
-
+  def get_piece
+    return @piece_on_board
+  end
   def valid_for_pawn?(to_x, to_y, distance)
 
     final_coords=[to_x, to_y]
 
     if distance == 2
       if !self.has_completed_first_move
-        if Piece_Actions::Move_On_Board::move(self.get_x, self.get_y, 2, Piece_Actions::Move_On_Board::UP) == final_coords
+        if Move_On_Board::move(self.get_x, self.get_y, 2, Move_On_Board::UP) == final_coords
           return true
         end
       end
     elsif distance ==1
-      if Piece_Actions::Move_On_Board::move(self.get_x, self.get_y, 1, Piece_Actions::Move_On_Board::UP) == final_coords
+      if Move_On_Board::move(self.get_x, self.get_y, 1, Move_On_Board::UP) == final_coords
         return true
-      elsif Piece_Actions::Move_On_Board::move_diagonal(self.get_x, self.get_y, 1, Piece_Actions::Move_On_Board::TOP_RIGHT) == final_coords
+      elsif Move_On_Board::move_diagonal(self.get_x, self.get_y, 1, Move_On_Board::TOP_RIGHT) == final_coords
         return true
       end
     end

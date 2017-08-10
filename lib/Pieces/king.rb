@@ -8,7 +8,7 @@ class King < Piece
   end
 
 
-  def self.valid_for_king?(to_x, to_y, straight_directions,diagonal_directions)
+  def valid_for_king?(to_x, to_y, straight_directions,diagonal_directions)
 
     result_coord=[to_x, to_y]
 
@@ -33,12 +33,15 @@ class King < Piece
   end
 
 
+  def get_piece
+    return @piece_on_board
+  end
   def king_direction_movement(direction, is_diagonal)
     result=[]
     if is_diagonal
-      result= Piece_Actions::Move_On_Board::move_diagonal(self.get_x, self.get_y, 1, direction)
+      result= Move_On_Board::move_diagonal(self.get_x, self.get_y, 1, direction)
     else
-      result= Piece_Actions::Move_On_Board::move(self.get_x, self.get_y, 1, direction)
+      result= Move_On_Board::move(self.get_x, self.get_y, 1, direction)
     end
     return result
   end

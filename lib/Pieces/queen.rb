@@ -26,24 +26,28 @@ class Queen < Piece
     diagonal_directions.each do |dir|
       times=Board.distance_for_multiple_movements(self,to_x,to_y,dir)
       validate=queen_direction_movement(dir, true,times)
-        if validate == final_coords
-          return true
-        elsif validate ==[nil, nil] or validate == [-1, -1]
-          return false
-        end
+      if validate == final_coords
+        return true
+      elsif validate ==[nil, nil] or validate == [-1, -1]
+        return false
+      end
     end
 
     return false
   end
 
 
+  def get_piece
+    return @piece_on_board
+  end
+
 
   def queen_direction_movement(direction, is_diagonal,number_of_times)
     result=[]
     if is_diagonal
-      result= Piece_Actions::Move_On_Board::move_diagonal(self.get_x, self.get_y, number_of_times, direction)
+      result= Move_On_Board::move_diagonal(self.get_x, self.get_y, number_of_times, direction)
     else
-      result= Piece_Actions::Move_On_Board::move(self.get_x, self.get_y, number_of_times, direction)
+      result= Move_On_Board::move(self.get_x, self.get_y, number_of_times, direction)
     end
     return result
   end

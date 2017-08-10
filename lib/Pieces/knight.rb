@@ -11,16 +11,21 @@ class Knight < Piece
   end
 
 
+  def get_piece
+    return @piece_on_board
+  end
 
   def valid_for_knight(to_x,to_y,diagonal_directions)
     final_coords=[to_x,to_y]
     diagonal_directions.each do |direction|
-      result=Piece_Actions::Move_On_Board::move_knight(self.get_x,self.get_y,direction)
+      result=Move_On_Board::move_knight(self.get_x,self.get_y,direction)
       if  result == final_coords
         return true
       elsif result ==[nil,nil] or result == [-1,-1]
         return false
       end
+
     end
+    return false
   end
 end
