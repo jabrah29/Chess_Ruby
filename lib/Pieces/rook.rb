@@ -4,8 +4,8 @@ require_relative '../Gameplay/move_piece'
 class Rook < Piece
   attr_accessor :piece_on_board
 
-  def initialize(color,x_coord,y_coord,piece_string)
-    super(color,x:x_coord,y:y_coord)
+  def initialize(id,color,x_coord,y_coord,piece_string)
+    super(id,color,x:x_coord,y:y_coord)
     @piece_on_board=piece_string
   end
 

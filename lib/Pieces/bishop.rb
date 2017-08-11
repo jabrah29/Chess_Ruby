@@ -4,8 +4,8 @@ require_relative 'piece'
 class Bishop < Piece
   attr_accessor :has_completed_first_move
 
-  def initialize(team,x_coord,y_coord,piece_string)
-    super(team,x:x_coord,y:y_coord)
+  def initialize(id,team,x_coord,y_coord,piece_string)
+    super(id,team,x:x_coord,y:y_coord)
     @piece_on_board=piece_string
     @has_completed_first_move=false
   end

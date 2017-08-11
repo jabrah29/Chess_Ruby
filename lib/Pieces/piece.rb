@@ -3,18 +3,24 @@ require_relative '../Player/color'
 class Piece
 
   @color
+  @id
 
 
 
-  def initialize(set_color,**coords)
+  def initialize(id,set_color,**coords)
     @color=set_color
     @location_on_board={
         "x"=>coords[:x],
         "y"=>coords[:y]
     }
     @is_alive=true
+    @id=id
   end
 
+
+  def get_id
+    return @id
+  end
 
   def get_x
     return @location_on_board["x"]
@@ -31,6 +37,10 @@ class Piece
 
   def is_black?
     return @color == Color::BLACK
+  end
+
+  def get_print_piece
+    return @pi
   end
 
 

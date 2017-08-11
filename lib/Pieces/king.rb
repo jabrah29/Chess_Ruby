@@ -2,8 +2,8 @@ require_relative '../Pieces/piece'
 
 class King < Piece
 
-  def initialize(color,x_coord,y_coord,piece_string)
-    super(color,x:x_coord,y:y_coord)
+  def initialize(id,color,x_coord,y_coord,piece_string)
+    super(id,color,x:x_coord,y:y_coord)
     @piece_on_board=piece_string
   end
 
