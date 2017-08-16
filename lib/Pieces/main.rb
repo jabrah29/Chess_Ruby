@@ -10,6 +10,7 @@ require_relative '../Pieces/knight'
 require_relative '../Pieces/bishop'
 require_relative '../Gameplay/valid_conditions'
 require_relative 'piece_factory'
+require_relative '../Board/board'
 require 'ostruct'
 
 
@@ -25,21 +26,22 @@ class Main
   def self.get_max_size
     return MAX_SIZE
   end
-  def get_player_names
+  def self.get_player_names
     puts "--Welcome--"
     puts "Enter Player White Name"
     name=gets.chomp
     puts "Enter Player Black Name"
     name2=gets.chomp
-    return name,name2
+    return [name,name2]
   end
 
-  def start_game
-    white,black=get_player_names
-    @@current_player=Player_White.new(white)
-    @@waiting_player=Player_Black.new(black)
-    Board.set_up_game
+  def self.set_players(*names)
+    @@current_player=Player_White.new(names[0])
+    @@waiting_player=Player_Black.new(names[1])
   end
+
+
+
 
   def get_turn_coordinates
     input=OpenStruct.new
@@ -73,12 +75,14 @@ class Main
 
 
 
-  def play_game
-    input=get_turn_coordinates
+  def play_game(input)
     factory=Piece_Factory.new(input.piece)
     if factory.is_move_valid?( input.x, input.y)
       puts "yes"
+    else
+      puts "nope"
     end
+
 
     puts input
   end
@@ -94,8 +98,5 @@ class Main
 
 end
 
-game=Main.new
-game.start_game
-game.play_game
 
 

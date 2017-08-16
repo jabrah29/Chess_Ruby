@@ -10,7 +10,7 @@ class Queen < Piece
     @has_completed_first_move=false
   end
 
-  def valid_for_queen(to_x,to_y,straight_directions,diagonal_directions)
+  def valid_for_queen?(to_x,to_y,straight_directions,diagonal_directions)
     final_coords=[to_x,to_y]
 
     straight_directions.each do |dir|

@@ -1,7 +1,7 @@
 require_relative '../Board/board'
+require_relative '../Pieces/main'
+class Move_On_Board
 
-  module Move_On_Board
-    attr_reader :RIGHT, :LEFT, :TOP_LEFT, :TOP_RIGHT,:BOTTOM_LEFT,:BOTTOM_RIGHT,:UP,:DOWN ,:KNIGHT_DOWN_LEFT,:KNIGHT_DOWN_RIGHT
     RIGHT=0
     TOP_RIGHT=1
     TOP_LEFT=2

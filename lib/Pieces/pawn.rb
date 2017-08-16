@@ -26,14 +26,14 @@ class Pawn < Piece
 
     if distance == 2
       if !self.has_completed_first_move
-        if Move_On_Board::move(self.get_x, self.get_y, 2, Move_On_Board::UP) == final_coords
+        if Move_On_Board.move(self.get_x, self.get_y, 2, Move_On_Board::UP) == final_coords
           return true
         end
       end
     elsif distance ==1
-      if Move_On_Board::move(self.get_x, self.get_y, 1, Move_On_Board::UP) == final_coords
+      if Move_On_Board.move(self.get_x, self.get_y, 1, Move_On_Board::UP) == final_coords
         return true
-      elsif Move_On_Board::move_diagonal(self.get_x, self.get_y, 1, Move_On_Board::TOP_RIGHT) == final_coords
+      elsif Move_On_Board.move_diagonal(self.get_x, self.get_y, 1, Move_On_Board::TOP_RIGHT) == final_coords
         return true
       end
     end

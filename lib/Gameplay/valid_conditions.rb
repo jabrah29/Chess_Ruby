@@ -4,11 +4,11 @@ require_relative '../Pieces/king'
 require_relative '../Player/player_white'
 require_relative '../Pieces/rook'
 require_relative '../Pieces/bishop'
-module Valid_Conditions
+class Valid_Conditions
 
-  @@straight_directions=[Move_On_Board::UP, Move_On_Board::DOWN, Move_On_Board::LEFT, Move_On_Board::RIGHT]
-  @@diagonal_directions=[Move_On_Board::TOP_LEFT, Move_On_Board::TOP_RIGHT, Move_On_Board::BOTTOM_RIGHT, Move_On_Board::BOTTOM_LEFT]
-  @@knight_directions=[Move_On_Board::KNIGHT_UP_RIGHT,Move_On_Board::KNIGHT_RIGHT_UP,Move_On_Board::KNIGHT_LEFT_DOWN,Move_On_Board::KNIGHT_DOWN_LEFT,Move_On_Board::KNIGHT_DOWN_RIGHT,Move_On_Board::KNIGHT_RIGHT_DOWN, Move_On_Board::KNIGHT_UP_LEFT,Move_On_Board::KNIGHT_LEFT_UP]
+  @@straight_directions=[1,5,6,7]
+  @@diagonal_directions=[1,5,6,7]
+  @@knight_directions=[1,3,5,6]
 
 
 

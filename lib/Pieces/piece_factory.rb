@@ -16,24 +16,29 @@ class Piece_Factory
   def is_move_valid?( to_x, to_y)
     return false if Valid_Conditions.base_error_conditions_fail?(to_x, to_y, @type_of_piece)
 
+    puts @type_of_piece.class.name
     case @type_of_piece.class.name
-      when Bishop
+      when "Bishop"
         return @type_of_piece.valid_for_rook?(to_x, to_y, Valid_Conditions.get_all_diagonal_directions)
-      when Pawn
-        distance=to_y-@type_of_piece.get_y
+      when "Pawn"
+        distance=to_y.to_s.to_i - @type_of_piece.get_y.to_s.to_i
+        puts distance
         if distance > 2
           return false
         else
-          return @type_of_piece.valid_for_pawn(to_x,to_y,distance)
+          puts "in pawn"
+          return @type_of_piece.valid_for_pawn?(to_x,to_y,distance)
         end
-      when Queen
-        return @type_of_piece.valid_for_queen(to_x, to_y, Valid_Conditions.get_all_straight_directions, Valid_Conditions.get_all_diagonal_directions)
-      when King
-        return @type_of_piece.valid_for_king(to_x, to_y, Valid_Conditions.get_all_straight_directions, Valid_Conditions.get_all_diagonal_directions)
-      when Rook
-        return @type_of_piece.valid_for_rook(to_x, to_y, Valid_Conditions.get_all_straight_directions)
-      when Knight
-        return @type_of_piece.valid_for_knight(to_x, to_y, Valid_Conditions.get_all_knights_directions)
+      when "Queen"
+        return @type_of_piece.valid_for_queen?(to_x, to_y, Valid_Conditions.get_all_straight_directions, Valid_Conditions.get_all_diagonal_directions)
+      when "King"
+        return @type_of_piece.valid_for_king?(to_x, to_y, Valid_Conditions.get_all_straight_directions, Valid_Conditions.get_all_diagonal_directions)
+      when "Rook"
+        return @type_of_piece.valid_for_rook?(to_x, to_y, Valid_Conditions.get_all_straight_directions)
+      when "Knight"
+        return @type_of_piece.valid_for_knight?(to_x, to_y, Valid_Conditions.get_all_knights_directions)
+      else
+        puts "none"
 
     end
   end

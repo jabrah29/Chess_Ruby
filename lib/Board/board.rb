@@ -1,3 +1,13 @@
+require_relative '../Player/player_black'
+require_relative '../Player/player_white'
+require_relative '../../lib/Pieces/pawn'
+require_relative '../Pieces/main'
+require_relative '../Pieces/rook'
+require_relative '../Pieces/bishop'
+require_relative '../Pieces/knight'
+require_relative '../Pieces/queen'
+require_relative '../Pieces/king'
+
 class Board
 
   def self.initialize_pieces
@@ -45,6 +55,7 @@ class Board
 
   def self.set_up_game
     initialize_pieces
+
     put_pieces_on_board
     display_board
 
@@ -63,9 +74,8 @@ class Board
             @@chess_board[i][j]=pawn
             player_black_piece[pawn.get_id]= pawn
           when 1
-            pawn= Pawn.new("W_p#{i}_#{j}",Color::WHITE, i, j, Print::White::PAWN)
-            @@chess_board[i][j]= pawn
-            player_white_pieces[pawn.get_id]= pawn
+            @@chess_board[i][j]= Pawn.new("W_p#{i}_#{j}",Color::WHITE, i, j, Print::White::PAWN)
+            player_white_pieces[@@chess_board[i][j].get_id]=  @@chess_board[i][j]
 
         end
         case i
@@ -139,5 +149,7 @@ class Board
       print"\n"
     end
   end
+
+
 end
 

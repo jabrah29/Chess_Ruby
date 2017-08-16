@@ -15,7 +15,7 @@ class Knight < Piece
     return @piece_on_board
   end
 
-  def valid_for_knight(to_x,to_y,diagonal_directions)
+  def valid_for_knight?(to_x,to_y,diagonal_directions)
     final_coords=[to_x,to_y]
     diagonal_directions.each do |direction|
       result=Move_On_Board::move_knight(self.get_x,self.get_y,direction)

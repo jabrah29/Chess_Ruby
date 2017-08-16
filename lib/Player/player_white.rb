@@ -1,3 +1,4 @@
+require_relative '../Board/board'
 class Player_White
 
   @@CURRENT_PIECES=[]
@@ -17,6 +18,11 @@ class Player_White
 
   def self.initialize_pieces(list)
     @@CURRENT_PIECES=list
+  end
+
+
+  def move_piece(piece,**new_location)
+    
   end
 
 
