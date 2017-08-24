@@ -26,6 +26,7 @@ class Piece
     return @location_on_board["x"]
   end
 
+
   def get_y
     return @location_on_board["y"]
   end
@@ -44,8 +45,8 @@ class Piece
   end
 
 
-  def move_to(x,y)
-    @location_on_board["x"],@location_on_board["y"]=x,y
+  def move_to(**coords)
+    @location_on_board["x"],@location_on_board["y"]=coords[:x],coords[:y]
   end
 
 

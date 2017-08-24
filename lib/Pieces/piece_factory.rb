@@ -16,17 +16,14 @@ class Piece_Factory
   def is_move_valid?( to_x, to_y)
     return false if Valid_Conditions.base_error_conditions_fail?(to_x, to_y, @type_of_piece)
 
-    puts @type_of_piece.class.name
     case @type_of_piece.class.name
       when "Bishop"
-        return @type_of_piece.valid_for_rook?(to_x, to_y, Valid_Conditions.get_all_diagonal_directions)
+        return @type_of_piece.valid_for_bishop?(to_x, to_y, Valid_Conditions.get_all_diagonal_directions)
       when "Pawn"
-        distance=to_y.to_s.to_i - @type_of_piece.get_y.to_s.to_i
-        puts distance
-        if distance > 2
+        distance=(to_x.to_i - @type_of_piece.get_x.to_i).abs
+        if distance > 2 or distance < -2 or (distance == 2 and @type_of_piece.has_completed_first_move == true)
           return false
         else
-          puts "in pawn"
           return @type_of_piece.valid_for_pawn?(to_x,to_y,distance)
         end
       when "Queen"

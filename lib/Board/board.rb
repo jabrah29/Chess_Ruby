@@ -1,12 +1,11 @@
-require_relative '../Player/player_black'
 require_relative '../Player/player_white'
-require_relative '../../lib/Pieces/pawn'
-require_relative '../Pieces/main'
 require_relative '../Pieces/rook'
 require_relative '../Pieces/bishop'
 require_relative '../Pieces/knight'
 require_relative '../Pieces/queen'
 require_relative '../Pieces/king'
+require_relative '../Pieces/pawn'
+require_relative '../Gameplay/move_piece'
 
 class Board
 
@@ -25,6 +24,10 @@ class Board
     return false
   end
 
+  def self.get_chess_board
+    return @@chess_board
+  end
+
 
   def self.is_spot_avaliable?(player,at_x,at_y)
     player.get_current_pieces.each do |piece|
@@ -38,25 +41,26 @@ class Board
   def self.distance_for_multiple_movements(piece,to_x,to_y, directions)
     times=0
     case directions
-      when Piece_Actions::Move_On_Board::UP
-        times=to_y-piece.get_y
-      when Piece_Actions::Move_On_Board::DOWN
-        times=piece.get_y-to_y
-      when Piece_Actions::Move_On_Board::RIGHT
-        times=to_x-piece.get_x
-      when Piece_Actions::Move_On_Board::LEFT
-        times=piece.get_x - to_x
-        #TODO: add for diagonales
+      when Move_On_Board::UP, Move_On_Board::DOWN
+        times=(to_x.to_i-piece.get_x.to_i).abs
+      when Move_On_Board::RIGHT
+        times=(to_x.to_i-piece.get_x.to_i).abs
+      when Move_On_Board::TOP_LEFT, Move_On_Board::TOP_RIGHT
+        times=(piece.get_x.to_i - to_x.to_i).abs
+      when Move_On_Board::BOTTOM_LEFT, Move_On_Board::BOTTOM_RIGHT
+        times=(to_y.to_i - piece.get_y.to_i).abs
     end
+    puts "distance: #{times}"
     return times
   end
 
 
 
-  def self.set_up_game
+  def self.set_up_game(white,black)
     initialize_pieces
-
-    put_pieces_on_board
+    pieces=put_pieces_on_board
+    white.initialize_pieces(pieces[0])
+    black.initialize_pieces(pieces[1])
     display_board
 
   end
@@ -68,13 +72,14 @@ class Board
 
     for i in 0..7 do
       for j in 0..7 do
+
         case i
           when 6
-            pawn=Pawn.new("B_p#{i}_#{j}",Color::BLACK, i, j, Print::Black::PAWN)
+            pawn=Pawn.new("bpawn#{i}#{j}",Color::BLACK, i, j, Print::Black::PAWN)
             @@chess_board[i][j]=pawn
             player_black_piece[pawn.get_id]= pawn
           when 1
-            @@chess_board[i][j]= Pawn.new("W_p#{i}_#{j}",Color::WHITE, i, j, Print::White::PAWN)
+            @@chess_board[i][j]= Pawn.new("wpawn#{i}#{j}",Color::WHITE, i, j, Print::White::PAWN)
             player_white_pieces[@@chess_board[i][j].get_id]=  @@chess_board[i][j]
 
         end
@@ -82,22 +87,22 @@ class Board
           when 0 # White first row
             case j
               when 0,7 #rook
-                @@chess_board[i][j]=Rook.new "W_r#{i}_#{j}",Color::WHITE, i, j, Print::White::ROOK
+                @@chess_board[i][j]=Rook.new "wrook#{i}#{j}",Color::WHITE, i, j, Print::White::ROOK
                 player_white_pieces[@@chess_board[i][j].get_id]= @@chess_board[i][j]
               when 1,6 #knights
-                knight=Knight.new("W_k#{i}_#{j}",Color::WHITE, i, j, Print::White::KNIGHT)
+                knight=Knight.new("wknight#{i}#{j}",Color::WHITE, i, j, Print::White::KNIGHT)
                 @@chess_board[i][j]=knight
                 player_white_pieces[knight.get_id]= knight
               when 2,5 #bishops
-                bishop= Bishop.new("W_b#{i}_#{j}",Color::WHITE, i, j, Print::White::BISHOP)
+                bishop= Bishop.new("wbishop#{i}#{j}",Color::WHITE, i, j, Print::White::BISHOP)
                 @@chess_board[i][j]=bishop
                 player_white_pieces[bishop.get_id]=bishop
               when 3
-                queen=Queen.new("W_q#{i}_#{j}",Color::WHITE,i,j,Print::White::QUEEN)
+                queen=Queen.new("wqueen#{i}#{j}",Color::WHITE,i,j,Print::White::QUEEN)
                 @@chess_board[i][j]=queen
                 player_white_pieces[queen.get_id]=queen
               when 4
-                king=King.new("W_q#{i}_#{j}",Color::WHITE,i,j,Print::White::KING)
+                king=King.new("wking#{i}#{j}",Color::WHITE,i,j,Print::White::KING)
                 @@chess_board[i][j]=king
                 player_white_pieces[king.get_id]=king
             end
@@ -105,23 +110,23 @@ class Board
           when 7
             case j
               when 0,7 #rook
-                bishop= Rook.new("B_b#{i}_#{j}",Color::BLACK, i, j, Print::Black::ROOK)
-                @@chess_board[i][j]=bishop
-                player_black_piece[bishop.get_id]= bishop
+                rook= Rook.new("brook#{i}#{j}",Color::BLACK, i, j, Print::Black::ROOK)
+                @@chess_board[i][j]=rook
+                player_black_piece[rook.get_id]= rook
               when 1,6 #knights
-                knight=Knight.new("B_k#{i}_#{j}",Color::BLACK, i, j, Print::Black::KNIGHT)
+                knight=Knight.new("bknight#{i}#{j}",Color::BLACK, i, j, Print::Black::KNIGHT)
                 @@chess_board[i][j]=knight
                 player_black_piece[knight.get_id]= bishop
               when 2,5 #bishops
-                bishop= Bishop.new("B_b#{i}_#{j}",Color::BLACK, i, j, Print::Black::BISHOP)
+                bishop= Bishop.new("bbishop#{i}#{j}",Color::BLACK, i, j, Print::Black::BISHOP)
                 @@chess_board[i][j]=bishop
                 player_black_piece[bishop.get_id]=bishop
               when 3
-                queen=Queen.new("B_q#{i}_#{j}",Color::BLACK,i,j,Print::Black::QUEEN)
+                queen=Queen.new("bqueen#{i}#{j}",Color::BLACK,i,j,Print::Black::QUEEN)
                 @@chess_board[i][j]=queen
                 player_black_piece[queen.get_id]=queen
               when 4
-                king=King.new("B_q#{i}_#{j}",Color::BLACK,i,j,Print::Black::KING)
+                king=King.new("bking#{i}#{j}",Color::BLACK,i,j,Print::Black::KING)
                 @@chess_board[i][j]=king
                 player_black_piece[king.get_id]=king
             end
@@ -131,12 +136,22 @@ class Board
 
     end
 
-    Player_White.initialize_pieces(player_white_pieces)
-    Player_Black.initialize_pieces(player_black_piece)
+    return [player_white_pieces,player_black_piece]
 
   end
 
+  def self.print_coords
+    @@chess_board.each_index do |row|
+      sub_arr=@@chess_board[row]
+      sub_arr.each_index do |col|
+        print "#{row}_#{col} "
+      end
+      print"\n"
+    end
+  end
+
   def self.display_board
+    puts ""
     @@chess_board.each_index do |row|
       sub_arr=@@chess_board[row]
       sub_arr.each_index do |col|

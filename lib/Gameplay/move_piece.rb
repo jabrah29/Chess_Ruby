@@ -1,5 +1,4 @@
 require_relative '../Board/board'
-require_relative '../Pieces/main'
 class Move_On_Board
 
     RIGHT=0
@@ -26,9 +25,9 @@ class Move_On_Board
       (1..number_of_times).each do
         case direction
           when UP
-            local_y+=1
+            local_x+=1
           when DOWN
-            local_y-=1
+            local_x-=1
           when LEFT
             local_x-=1
           when RIGHT
@@ -75,9 +74,9 @@ class Move_On_Board
 
 
     def self.check_for_collisions(local_x,local_y)
-      if !Board.is_spot_avaliable?(Main.get_current_player,local_x,local_y)
+      if !Board.is_spot_avaliable?(Main.current_player,local_x,local_y)
         return [nil,nil]
-      elsif !Board.is_spot_avaliable?(Main.get_waiting_player,local_x,local_y)
+      elsif !Board.is_spot_avaliable?(Main.waiting_player,local_x,local_y)
         return [-1,-1]
       end
     end

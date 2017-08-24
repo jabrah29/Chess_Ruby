@@ -1,6 +1,5 @@
 require_relative '../Player/player_white'
-require_relative '../Player/player_black'
-require_relative "../Pieces/rook"
+require_relative '../Pieces/rook'
 require_relative '../Pieces/queen'
 require_relative '../Pieces/king'
 require_relative '../Player/color'
@@ -16,42 +15,35 @@ require 'ostruct'
 
 class Main
 
-
-  @@current_player
-  @@waiting_player
-
   MAX_SIZE=7
 
 
   def self.get_max_size
     return MAX_SIZE
   end
-  def self.get_player_names
-    puts "--Welcome--"
-    puts "Enter Player White Name"
-    name=gets.chomp
-    puts "Enter Player Black Name"
-    name2=gets.chomp
-    return [name,name2]
-  end
 
-  def self.set_players(*names)
-    @@current_player=Player_White.new(names[0])
-    @@waiting_player=Player_Black.new(names[1])
+
+  def self.set_players
+    @@current_player=Player.new('W')
+    @@waiting_player=Player.new('B')
   end
 
 
 
+  def self.switch_turns(curr_player,next_player)
+    @@current_player=curr_player
+    @@waiting_player=next_player
+  end
 
-  def get_turn_coordinates
+  def self.get_turn_coordinates
     input=OpenStruct.new
+
     catch :input_loop do
       loop do
         print "Enter id of piece:"
         input.id=gets.chomp
         @@current_player.get_current_pieces.each do |piece|
           if piece[0].eql? input.id
-            puts "found"
             input.piece=piece[1]
             break
           end
@@ -75,10 +67,10 @@ class Main
 
 
 
-  def play_game(input)
+  def self.play_game(input)
     factory=Piece_Factory.new(input.piece)
     if factory.is_move_valid?( input.x, input.y)
-      puts "yes"
+      Main.current_player.move_piece(input.piece,x:Integer(input.x),y:Integer(input.y))
     else
       puts "nope"
     end
@@ -87,16 +79,44 @@ class Main
     puts input
   end
 
-  def self.get_current_player
+  def self.current_player
     return @@current_player
   end
 
-  def self.get_waiting_player
+  def self.waiting_player
     return @@waiting_player
   end
 
 
 end
+
+
+Main.set_players
+Board.set_up_game(Main.current_player,Main.waiting_player)
+Board.print_coords
+input=OpenStruct.new
+input.piece=Pawn.new("wpawn10",Color::WHITE,1,0,Print::White::PAWN)
+input.x=3
+input.y=0
+
+  Main.play_game(input)
+  Board.display_board
+
+
+  puts "   ===   "
+
+ # Main.switch_turns(Main.waiting_player,Main.current_player)
+
+
+  input2=OpenStruct.new
+  input2.piece=Rook.new("wrook00",Color::WHITE,0,0,Print::White::ROOK)
+  input2.x=2
+  input2.y=0
+
+Main.play_game(input2)
+Board.display_board
+
+
 
 
 

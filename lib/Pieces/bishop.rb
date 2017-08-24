@@ -16,7 +16,7 @@ class Bishop < Piece
   end
 
 
-  def valid_for_bishop(to_x, to_y,diagonal_directions)
+  def valid_for_bishop?(to_x, to_y,diagonal_directions)
     final_coords=[to_x, to_y]
     times=to_x-self.get_x
 
